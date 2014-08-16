@@ -14,6 +14,7 @@ Select 'Open project'
 Navigate to the repo and select the "build.gradle" file
 
 Leave the "Use default grade wrapper" box ticked
+
 --------------
 
 Enjoy and feel free to contribute and make suggestions!
