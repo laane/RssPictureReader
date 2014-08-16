@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="base_names">
+        <item>OnlySupercars</item>
+        <item>FuckYeahMountainbiking</item>
+        <item>BreathtakingLandscapes</item>
+    </string-array>
+    <string-array name="base_urls">
+        <item>http://onlysupercars.tumblr.com/rss</item>
+        <item>http://fuckyeahmountainbiking.tumblr.com/rss</item>
+        <item>http://breathtakinglandscapes.tumblr.com/rss</item>
+    </string-array>
+
+</resources>

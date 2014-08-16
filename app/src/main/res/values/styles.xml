@@ -1,0 +1,53 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="settings_common">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="settings_image">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginRight">15dip</item>
+    </style>
+
+    <style name="settings_title" parent="settings_common">
+        <item name="android:tag">@string/yes</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">false</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="settings_item_layout" parent="settings_common">
+        <item name="android:background">@drawable/settings_list</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="settings_item" parent="settings_common">
+        <item name="android:textSize">18dip</item>
+    </style>
+
+</resources>

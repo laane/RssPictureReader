@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Not grey anymore but an RSS-logo-like orange!-->
+    <color name="myGrey">#f47c12</color>
+    <color name="transparent">#00000000 </color>
+    <color name="separator">#99808080</color>
+</resources>

@@ -1,0 +1,44 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+            android:id="@+id/button_add_feed"
+            android:orderInCategory="100"
+            android:showAsAction="ifRoom|withText"
+            android:title="@string/add"
+            android:icon="@android:drawable/ic_input_add"/>
+
+    <item
+            android:id="@+id/button_remove_feed"
+            android:orderInCategory="100"
+            android:showAsAction="ifRoom|withText"
+            android:title="@string/delete"
+            android:icon="@android:drawable/ic_delete"/>
+
+    <group android:id="@+id/group_to_hide">
+        <item
+                android:id="@+id/button_reload_feed"
+                android:orderInCategory="100"
+                android:showAsAction="never"
+                android:title="@string/reload"
+                android:icon="@android:drawable/ic_popup_sync" />
+
+        <item
+                android:id="@+id/button_save_pic"
+                android:orderInCategory="100"
+                android:showAsAction="never"
+                android:title="@string/save"/>
+
+        <item
+                android:id="@+id/button_set_wallpaper"
+                android:orderInCategory="100"
+                android:showAsAction="never"
+                android:title="@string/set_wallpaper"/>
+
+        <item
+            android:id="@+id/button_settings"
+            android:orderInCategory="100"
+            android:showAsAction="never"
+            android:title="@string/menu_settings"/>
+
+    </group>
+</menu>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="280dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/new_name_label"
+            android:layout_width="62dip"
+            android:layout_height="wrap_content"
+            android:text="@string/name_label"
+            android:layout_marginLeft="4dp"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/new_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:dropDownHeight="170dip">
+
+            <requestFocus/>
+        </AutoCompleteTextView>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/new_url_label"
+            android:layout_width="62dip"
+            android:layout_height="wrap_content"
+            android:text="@string/url_label"
+            android:layout_marginLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/new_url"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/url_base" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/tumblr_checkbox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/tumblr"
+        android:checked="false"
+        android:layout_marginLeft="66dip" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button_browse_autocomplete"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:text="@string/browse" />
+
+        <Button
+            android:id="@+id/button_confirm_add_item"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="@string/add" />
+
+    </LinearLayout>
+</LinearLayout>

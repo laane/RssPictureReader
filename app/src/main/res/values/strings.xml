@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RSS Picture Reader</string>
+    <string name="menu_settings">Settings</string>
+    <string name="loading">Loading...</string>
+    <string name="new_feed">New feed</string>
+    <string name="feed_list">Feed list</string>
+    <string name="remove_feed">Remove feed</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="options">Options</string>
+    <string name="action">Action</string>
+    <string name="reload">Reload</string>
+    <string name="nice_pic">Nice pic</string>
+    <string name="message_saved">Picture saved: </string>
+    <string name="load_error">Cannot load more images</string>
+    <string name="xml_error">Network error: Cannot fetch XML</string>
+    <string name="name_label">Name... </string>
+    <string name="url_label">Url:</string>
+    <string name="url_base">http://</string>
+    <string name="browse">Browse</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="ok">Ok</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="base_url_refill">Refill database with basic feeds</string>
+    <string name="set_wallpaper">Set as wallpaper</string>
+    <string name="wallpaper_done">Wallpaper set</string>
+    <string name="wallpaper_error">Cannot set wallpaper</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_unavailable">Action unavailable</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_title">New pictures available</string>
+    <string name="notification_explanation">Enable notifications to stay aware of new pictures</string>
+    <string name="ask_live_wallpaper">Auto-update wallpaper with last picture of </string>
+    <string name="tumblr">Tumblr</string>
+    <string name="wallpaper_description">RSS Reader Wallpaper</string>
+    <string name="storage">Storage</string>
+    <string name="pic_location">Picture location</string>
+    <string name="error">Error:</string>
+    <string name="choose">Choose:</string>
+    <string name="reset_default_location">Reset to default location</string>
+
+    <string name="news_v2.2">- Error handling improved\n- Options on long click: set as wallpaper</string>
+    <string name="news_v3.0">- Screen orientation: doesn\'t reload pictures anymore</string>
+    <string name="news_v3.1">- Zoom: Double tap or multitouch</string>
+    <string name="news_v3.2">- Fixed: \"Cannot load more images\" error in some feeds</string>
+    <string name="news_v4.0">- New navigation using the actionbar and a left panel\n- Possibility to browse all feeds when adding one\n- Fixed: errors in some unconventional feeds</string>
+    <string name="news_v4.1">- Fixed: Pre-HoneyComb compatibility</string>
+    <string name="news_v4.3">- Stay aware of new pictures: enable notifications in the options\n- Fixed: Screen rotation issues</string>
+    <string name="news_v4.4">- Fixed: Rare bug at initialization</string>
+    <string name="news_v5.0">- Tumblr compatibility: Get a friendly help by ticking the new checkbox when adding feeds\n- Wallpaper: Enable live wallpaper to automatically update with new pictures</string>
+    <string name="news_v5.1">- Settings menu: Can now choose where to save pictures\n- New feeds in the suggestion list</string>
+    <string name="news_v5.2">- Fixed: Notification issues on Android KitKat</string>
+
+</resources>

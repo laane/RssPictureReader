@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RSS Image Reader</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="loading">Chargement...</string>
+    <string name="new_feed">Nouveau flux</string>
+    <string name="feed_list">Liste des flux</string>
+    <string name="remove_feed">Retirer flux</string>
+    <string name="save">Enregistrer</string>
+    <string name="cancel">Annuler</string>
+    <string name="options">Options</string>
+    <string name="action">Action</string>
+    <string name="reload">Recharger</string>
+    <string name="nice_pic">Nice pic</string>
+    <string name="message_saved">Photo enregistrée: </string>
+    <string name="load_error">Impossible de charger plus d\'images</string>
+    <string name="xml_error">Erreur réseau: Flux indisponible</string>
+    <string name="name_label">Nom... </string>
+    <string name="url_label">Url:</string>
+    <string name="url_base">http://</string>
+    <string name="browse">Parcourir</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Editer</string>
+    <string name="delete">Supprimer</string>
+    <string name="ok">Ok</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="base_url_refill">Base de données rechargée avec les flux de base</string>
+    <string name="set_wallpaper">Mettre en fond d\'écran</string>
+    <string name="wallpaper_done">Fond d\'écran mis à jour</string>
+    <string name="wallpaper_error">Impossible d\'appliquer le fond d\'écran</string>
+    <string name="drawer_open">Ouvre le navigation drawer</string>
+    <string name="drawer_close">Ferme le navigation drawer</string>
+    <string name="action_unavailable">Action non disponible</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_title">Nouvelles photos disponibles</string>
+    <string name="notification_explanation">Activez les notifications pour rester informé des dernières photos</string>
+    <string name="ask_live_wallpaper">Mise à jour auto avec la dernière photo : </string>
+    <string name="tumblr">Tumblr</string>
+    <string name="wallpaper_description">RSS Reader Wallpaper</string>
+    <string name="storage">Enregistrement</string>
+    <string name="pic_location">Emplacement des photos</string>
+    <string name="error">Erreur : </string>
+    <string name="choose">Choisir: </string>
+    <string name="reset_default_location">Restaurer emplac. par défaut</string>
+
+    <string name="news_v2.2">- Meilleure gestion des erreurs\n- Options sur le long click : mettre en fond d\'écran</string>
+    <string name="news_v3.0">- Orientation de l\'écran : ne recharge plus les images</string>
+    <string name="news_v3.1">- Zoom : Double click ou 2 doigts</string>
+    <string name="news_v3.2">- Résolu : Erreur \"Impossible de charger plus d\'images\" dans certains flux</string>
+    <string name="news_v4.0">- Nouvelle navigation avec la barre d\'action et un panneau à gauche\n- Possibilité de parcourir tous les flux dans la fonction \'Ajout\'\n- Résolu: Erreurs dans plusieurs flux spéciaux</string>
+    <string name="news_v4.1">- Résolu: Compatibilité pre-HoneyComb</string>
+    <string name="news_v4.3">- Restez informé des dernières photos: Activez les notifications dans le menu option\n- Résolu: Problèmes sur la rotation de l\'écran</string>
+    <string name="news_v4.4">- Résolu: Rare bug à l\'initialisation</string>
+    <string name="news_v5.0">- Compatibilité avec Tumblr: Cochez l\'option \"Tumblr\" en ajoutant un nouveau flux pour une aide dans la saisie\n- Fond d\'écran: Possibilité de mettre à jour automatiquement à chaque nouvelle photo</string>
+    <string name="news_v5.1">- Paramètres: Choix de l\'emplacement de sauvegarde\n- Nouveaux flux dans les suggestions</string>
+    <string name="news_v5.2">- Résolu: Problème de notifications sur Android KitKat</string>
+
+</resources>

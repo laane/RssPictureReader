@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <item><url>http://onlysupercars.tumblr.com/rss</url>
+        <name>OnlySupercars</name></item>
+    <item><url>http://fuckyeahmountainbiking.tumblr.com/rss</url>
+        <name>FuckYeahMountainbiking</name></item>
+    <item><url>http://breathtakinglandscapes.tumblr.com/rss</url>
+        <name>BreathtakingLandscapes</name></item>
+
+    <item><url>http://bonjouralien.tumblr.com/rss/</url>
+        <name>Alien</name></item>
+    <item><url>http://bonjourlebug.fr/rss/</url>
+        <name>Le Bug</name></item>
+    <item><url>http://dailybunny.org/feed/</url>
+        <name>Bunny</name></item>
+    <item><url>http://bonjourcadeau.tumblr.com/rss/</url>
+        <name>Cadeau</name></item>
+    <item><url>http://www.bonjourlechat.fr/rss/</url>
+        <name>Le Chat</name></item>
+    <item><url>http://www.bonjourlechien.fr/rss/</url>
+        <name>Le Chien</name></item>
+    <item><url>http://bonjourcrepe.tumblr.com/rss/</url>
+        <name>Crêpe</name></item>
+    <item><url>http://bonjourdoublecheese.tumblr.com/rss</url>
+        <name>Double Cheese</name></item>
+    <item><url>http://www.bonjourlesgeeks.com/rss/</url>
+        <name>Les Geeks</name></item>
+    <item><url>http://bonjourgrue.tumblr.com/rss/</url>
+        <name>Grue</name></item>
+    <item><url>http://bonjourhamster.fr/rss/</url>
+        <name>Hamster</name></item>
+    <item><url>http://padiphone4day.tumblr.com/rss/</url>
+        <name>IPad iPhone</name></item>
+    <item><url>http://bonjouriphone.tumblr.com/rss/</url>
+        <name>IPhone</name></item>
+    <item><url>http://bonjourlamotivation.tumblr.com/rss/</url>
+        <name>La Motivation</name></item>
+    <item><url>http://feeds.feedburner.com/BonjourMaison?format=xml</url>
+        <name>Maison</name></item>
+    <item><url>http://bonjournature.tumblr.com/rss/</url>
+        <name>Nature</name></item>
+    <item><url>http://dailyotter.org/feed/</url>
+        <name>Loutre</name></item>
+    <item><url>http://bonjourparisien.fr/feed/</url>
+        <name>Parisien</name></item>
+    <item><url>http://bonjourpedobear.tumblr.com/rss/</url>
+        <name>Pedobear</name></item>
+    <item><url>http://bonjourpingouin.tumblr.com/rss/</url>
+        <name>Pingouin</name></item>
+    <item><url>http://www.bonjourpokemon.fr/bonjour-pokemon-rss</url>
+        <name>Pokemon</name></item>
+    <item><url>http://feeds.feedburner.com/BonjourPoney?format=xml</url>
+        <name>Poney</name></item>
+    <item><url>http://bonjourserveur.tumblr.com/rss/</url>
+        <name>Serveur</name></item>
+    <item><url>http://bonjoursmoothie.fr/rss/</url>
+        <name>Smoothie</name></item>
+    <item><url>http://bonjourlasoiree.fr/rss/</url>
+        <name>La Soirée</name></item>
+    <item><url>http://bonjourstallman.tumblr.com/rss/</url>
+        <name>Stallman</name></item>
+    <item><url>http://bonjoursushi.tumblr.com/rss/</url>
+        <name>Sushi</name></item>
+    <item><url>http://feeds.feedburner.com/BonjourTableau?format=xml</url>
+        <name>Tableau</name></item>
+    <item><url>http://bonjourtatoos.tumblr.com/rss/</url>
+        <name>Tatoos</name></item>
+</root>

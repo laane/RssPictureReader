@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            >
+
+            <TextView
+                android:tag="@string/yes"
+                style="@style/settings_title"
+                android:text="@string/notifications"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/separator"
+                android:layout_marginBottom="2dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/settings_edit_notif"
+                android:orientation="horizontal"
+                style="@style/settings_item_layout"
+                >
+
+                <ImageView
+                    style="@style/settings_image"
+                    android:src="@android:drawable/ic_menu_edit" />
+
+                <TextView
+                    style="@style/settings_item"
+                    android:text="@string/edit" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/settings_title"
+                android:textStyle="bold"
+                android:text="@string/storage" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/separator"
+                android:layout_marginBottom="2dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/settings_pic_location"
+                android:orientation="horizontal"
+                style="@style/settings_item_layout"
+                >
+
+                <ImageView
+                    style="@style/settings_image"
+                    android:src="@android:drawable/ic_menu_save" />
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        style="@style/settings_item"
+                        android:text="@string/pic_location" />
+
+                    <TextView
+                        android:id="@+id/settings_pic_current_location"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:textSize="13dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/separator"
+                />
+
+            <LinearLayout
+                android:id="@+id/settings_pic_reset_location"
+                android:orientation="horizontal"
+                style="@style/settings_item_layout"
+                >
+
+                <ImageView
+                    style="@style/settings_image"
+                    android:src="@android:drawable/ic_menu_revert" />
+
+                <TextView
+                    style="@style/settings_item"
+                    android:text="@string/reset_default_location" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
