@@ -29,7 +29,7 @@ public class NotificationService
         implements MyDatabase.IDatabaseWatcher, FeedParser.RssParserCallBack {
 
     // Notification tools
-    public static final int NOTIFICATION_ID = 4242;
+    public static final int NOTIFICATION_ID = 421337;
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mBuilder;
 

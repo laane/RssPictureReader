@@ -2,6 +2,7 @@ package com.jujujuijk.android.fragment;
 
 import com.jujujuijk.android.rssreader.R;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+@SuppressLint("ValidFragment")
 public class ErrorFragment extends Fragment {
 	
 	ShowFeedFragment m_parent = null;

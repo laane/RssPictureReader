@@ -20,7 +20,7 @@
                 android:layout_above="@+id/title"
                 android:layout_below="@+id/date"
                 android:contentDescription="@string/nice_pic"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
         <TextView
                 android:id="@+id/date"
