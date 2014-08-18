@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+    <item><url>http://goprooftheday.tumblr.com/rss</url>
+        <name>GoPro of the day</name></item>
     <item><url>http://onlysupercars.tumblr.com/rss</url>
         <name>OnlySupercars</name></item>
     <item><url>http://fuckyeahmountainbiking.tumblr.com/rss</url>
         <name>FuckYeahMountainbiking</name></item>
+
     <item><url>http://breathtakinglandscapes.tumblr.com/rss</url>
         <name>BreathtakingLandscapes</name></item>
-
-    <item><url>http://bonjouralien.tumblr.com/rss/</url>
-        <name>Alien</name></item>
     <item><url>http://bonjourlebug.fr/rss/</url>
         <name>Le Bug</name></item>
     <item><url>http://dailybunny.org/feed/</url>
