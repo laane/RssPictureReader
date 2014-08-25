@@ -2,307 +2,178 @@ package com.jujujuijk.android.tools;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.Scroller;
+import android.view.ScaleGestureDetector;
+import android.graphics.Canvas;
 
-public class PinchImageView extends ImageView implements OnTouchListener {
+import android.util.AttributeSet;
 
-	public static final int GROW = 0;
-	public static final int SHRINK = 1;
+public class PinchImageView extends ImageView {
 
-	public static final int DURATION = 100;
-	public static final int TOUCH_INTERVAL_MIN = 10;
-	public static final int TOUCH_INTERVAL_DOUBLECLICK = 300;
+    public static final float MIN_SCALE = 1f;
+    public static final float MAX_SCALE = 3.5f;
 
-	public static final float MIN_SCALE = 1f;
-	public static final float MAX_SCALE = 3.5f;
-	public static final float ZOOM = 0.08f;
+    private static final int INVALID_POINTER_ID = -1;
 
-	private int screenW, screenH;
-	private float zoomPosX = 0.5f, zoomPosY = 0.5f;
+    private float mPosX;
+    private float mPosY;
 
-	private static int _interpolator = android.R.anim.accelerate_interpolator;
+    private float mLastTouchX;
+    private float mLastTouchY;
+    private float mLastGestureX;
+    private float mLastGestureY;
+    private int mActivePointerId = INVALID_POINTER_ID;
 
-	ImageView im = null;
+    private ScaleGestureDetector mScaleDetector;
+    private float mScaleFactor = 1.f;
 
-	float xPre, yPre, xSec, ySec;
-	float distDelta, distPre = 0;
-	float xScale = 1.0f, yScale = 1.0f;
+    public PinchImageView(Context context) {
+        super(context);
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+    }
 
-	int mTouchSlop;
-	long mLastGestureTime;
-	Paint mPaint;
-	Scroller mScroller;
+    public PinchImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+    }
 
-	boolean waitin = false; // true if we're waiting for double click
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        // Let the ScaleGestureDetector inspect all events.
+        mScaleDetector.onTouchEvent(ev);
 
-	public PinchImageView(Context context, AttributeSet attr) {
-		super(context, attr);
-		_init();
-	}
+        final int action = ev.getAction();
+        switch (action & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN: {
+                if (!mScaleDetector.isInProgress()) {
+                    final float x = ev.getX();
+                    final float y = ev.getY();
 
-	public PinchImageView(Context context) {
-		super(context);
-		_init();
-	}
+                    mLastTouchX = x;
+                    mLastTouchY = y;
+                    mActivePointerId = ev.getPointerId(0);
+                }
+                break;
+            }
+            case MotionEvent.ACTION_POINTER_1_DOWN: {
+                if (mScaleDetector.isInProgress()) {
+                    final float gx = mScaleDetector.getFocusX();
+                    final float gy = mScaleDetector.getFocusY();
+                    mLastGestureX = gx;
+                    mLastGestureY = gy;
+                }
+                break;
+            }
+            case MotionEvent.ACTION_MOVE: {
 
-	public PinchImageView(ImageView im) {
-		super(im.getContext());
-		_init();
-		this.im = im;
-		this.im.setOnTouchListener(this);
-	}
+                // Only move if the ScaleGestureDetector isn't processing a gesture.
+                if (!mScaleDetector.isInProgress()) {
+                    final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                    final float x = ev.getX(pointerIndex);
+                    final float y = ev.getY(pointerIndex);
 
-	public boolean onTouchEvent(MotionEvent event) {
-		int action = event.getAction() & MotionEvent.ACTION_MASK;
+                    final float dx = x - mLastTouchX;
+                    final float dy = y - mLastTouchY;
 
-		switch (action) {
-		case MotionEvent.ACTION_MOVE:
-			_doActionMove(event);
-			break;
-		case MotionEvent.ACTION_DOWN:
-			_doActionDown(event);
-		default:
-			if (xScale <= 1) // No zoom
-				super.onTouchEvent(event);
-			break;
-		}
-		mLastGestureTime = android.os.SystemClock.uptimeMillis();
-		return true;
-	}
+                    mPosX += dx;
+                    mPosY += dy;
 
-	private void _doActionMove(MotionEvent event) {
+                    invalidate();
 
-		int p_count = event.getPointerCount();
-		// point 1 coords
-		float xCur = event.getX(0);
-		float yCur = event.getY(0);
-		float distCur = distPre;
+                    mLastTouchX = x;
+                    mLastTouchY = y;
+                }
+                else{
+                    final float gx = mScaleDetector.getFocusX();
+                    final float gy = mScaleDetector.getFocusY();
 
-		if (p_count > 1) {
-			// point 2 coords
-			xSec = event.getX(1);
-			ySec = event.getY(1);
+                    final float gdx = gx - mLastGestureX;
+                    final float gdy = gy - mLastGestureY;
 
-			// distance between
-			distCur = (float) Math.sqrt(Math.pow(xSec - xCur, 2)
-					+ Math.pow(ySec - yCur, 2));
+                    mPosX += gdx;
+                    mPosY += gdy;
 
-			distDelta = distCur - distPre;
+                    invalidate();
 
-			// float rate = ZOOM;
-			float rate = ZOOM * (Math.abs(distDelta) > 100 ? 2 : 1);
-			long now = android.os.SystemClock.uptimeMillis();
-			if (distPre != 0 && now - mLastGestureTime > TOUCH_INTERVAL_MIN
-					&& Math.abs(distDelta) > mTouchSlop
-					&& Math.abs(distDelta) < 40) {
-				mLastGestureTime = 0;
+                    mLastGestureX = gx;
+                    mLastGestureY = gy;
+                }
 
-				// Get the center position where we want to zoom
-				float posX = ((xSec + xCur) / 2) / screenW;
-				float posY = ((ySec + yCur) / 2) / screenH;
-				posX = posX < 0 ? 0 : posX > 1 ? 1 : posX;
-				posY = posY < 0 ? 0 : posY > 1 ? 1 : posY;
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                mActivePointerId = INVALID_POINTER_ID;
+                break;
+            }
+            case MotionEvent.ACTION_CANCEL: {
+                mActivePointerId = INVALID_POINTER_ID;
+                break;
+            }
+            case MotionEvent.ACTION_POINTER_UP: {
 
-				ScaleAnimation scale = null;
-				int mode = distDelta > 0 ? GROW : (distCur == distPre ? 2
-						: SHRINK);
-				switch (mode) {
-				case GROW: // grow
-					if (xScale < MAX_SCALE) {
-						rate = (xScale + rate > MAX_SCALE) ? (MAX_SCALE - xScale)
-								: (rate);
-						scale = new ScaleAnimation(xScale, xScale += rate,
-								yScale, yScale += rate,
-								ScaleAnimation.RELATIVE_TO_SELF,
-								rate < 0 ? zoomPosX : (zoomPosX = posX),
-								ScaleAnimation.RELATIVE_TO_SELF,
-								rate < 0 ? zoomPosY : (zoomPosY = posY));
-					}
-					break;
-				case SHRINK: // shrink
-					if (xScale > MIN_SCALE) {
-						rate = (xScale - rate < MIN_SCALE) ? (xScale - MIN_SCALE)
-								: (rate);
-						scale = new ScaleAnimation(xScale, xScale -= rate,
-								yScale, yScale -= rate,
-								ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-								ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
-					}
-					break;
-				}
+                final int pointerIndex = (ev.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)
+                        >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                final int pointerId = ev.getPointerId(pointerIndex);
+                if (pointerId == mActivePointerId) {
+                    // This was our active pointer going up. Choose a new
+                    // active pointer and adjust accordingly.
+                    final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+                    mLastTouchX = ev.getX(newPointerIndex);
+                    mLastTouchY = ev.getY(newPointerIndex);
+                    mActivePointerId = ev.getPointerId(newPointerIndex);
+                }
+                else{
+                    final int tempPointerIndex = ev.findPointerIndex(mActivePointerId);
+                    mLastTouchX = ev.getX(tempPointerIndex);
+                    mLastTouchY = ev.getY(tempPointerIndex);
+                }
 
-                _startAnimation(scale);
-			}
-		} // else if (xScale > 1) {
-			// // translate
-			//
-			// float xDelta = xPre - xCur, yDelta = yPre - yCur;
-			// im.scrollBy((int) (xDelta / xScale - 1.0), (int) (yDelta
-			// / yScale - 1.0));
-			//
-			// // // mScroller.startScroll((int)xPre, (int)yPre,
-			// // (int)xDelta,
-			// // (int)yDelta);
-			// /*
-			// * TranslateAnimation scroll = new
-			// * TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0,
-			// * Animation.RELATIVE_TO_PARENT, -xDelta,
-			// * Animation.RELATIVE_TO_PARENT, 0,
-			// * Animation.RELATIVE_TO_PARENT, -yDelta);
-			// * scroll.setDuration(50); scroll.setFillAfter(true);
-			// * scroll.setInterpolator(getContext(), _interpolator);
-			// */
-			// // im.startAnimation(scroll);
-			//
-			// // im.layout(im.getLeft() - (int)xDelta, im.getTop() -
-			// // (int)yDelta, im.getRight() - (int)xDelta,
-			// // im.getBottom() -
-			// // (int)yDelta);
-			// }
+                break;
+            }
+        }
 
-		xPre = xCur;
-		yPre = yCur;
-		distPre = distCur;
-	}
+        return true;
+    }
 
-	private void _doActionDown(MotionEvent event) {
-		// point 1 coords
-		float xCur = event.getX(0);
-		float yCur = event.getY(0);
-		long now = android.os.SystemClock.uptimeMillis();
+    @Override
+    public void onDraw(Canvas canvas) {
 
-		if (waitin == true // Handles double click to zoom in/out
-				&& now - mLastGestureTime <= TOUCH_INTERVAL_DOUBLECLICK
-				&& Math.abs(xCur - xPre) + Math.abs(yCur - yPre) < 50) {
-			float rate = 1.5f;
+        canvas.save();
 
-			ScaleAnimation scale;
+//        if (mScaleFactor > 1)
+//            canvas.translate(mPosX, mPosY);
 
-			if (xScale > 1) // zoomed in. Go back at MIN_SCALE (1)
-				rate = MIN_SCALE - xScale; // negative value here, thats
-											// what we want
-			else
-				// no zoom. Lets run a 'classic' zoom
-				rate = (xScale + rate > MAX_SCALE) ? (MAX_SCALE - xScale)
-						: (rate);
+        if (mScaleDetector.isInProgress()) {
+            canvas.scale(mScaleFactor, mScaleFactor, mScaleDetector.getFocusX(), mScaleDetector.getFocusY());
+        }
+        else{
+            canvas.scale(mScaleFactor, mScaleFactor, mLastGestureX, mLastGestureY);
+        }
 
-			float posX = xCur / screenW;
-			float posY = yCur / screenH;
-			posX = posX < 0 ? 0 : posX > 1 ? 1 : posX;
-			posY = posY < 0 ? 0 : posY > 1 ? 1 : posY;
+        super.onDraw(canvas);
+        canvas.restore();
+    }
 
-			scale = new ScaleAnimation(xScale, xScale += rate, yScale,
-					yScale += rate, ScaleAnimation.RELATIVE_TO_SELF,
-					rate < 0 ? zoomPosX : (zoomPosX = posX),
-					ScaleAnimation.RELATIVE_TO_SELF, rate < 0 ? zoomPosY
-							: (zoomPosY = posY));
+    private class ScaleListener
+            extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            mScaleFactor *= detector.getScaleFactor();
 
-            _startAnimation(scale);
-			// im.scrollTo(0, 0);
-			// im.scrollBy((int) (xDelta / xScale - 1.0), (int) (yDelta
-			// / yScale - 1.0));
-			waitin = false;
-		} else {
-			// if (xScale > 1)
-			// _replaceCenter(event);
-			waitin = true;
-		}
+            // Don't let the object get too small or too large.
+            mScaleFactor = Math.max(MIN_SCALE, Math.min(mScaleFactor, MAX_SCALE));
 
-		xPre = xCur;
-		yPre = yCur;
-	}
-
-    private void _startAnimation(ScaleAnimation scale) {
-        if (scale != null) {
-//            if (xScale > 1) {
-//                setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | SYSTEM_UI_FLAG_FULLSCREEN | SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-//            } else {
-//                setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-//            }
-            scale.setDuration(DURATION);
-            scale.setFillAfter(true);
-            scale.setInterpolator(getContext(), _interpolator);
-
-            im.startAnimation(scale);
+            invalidate();
+            return true;
         }
     }
 
-	private void _init() {
-		im = this;
-		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-		mPaint = new Paint();
-		mPaint.setAntiAlias(true);
-		mScroller = new Scroller(getContext());
-		mLastGestureTime = android.os.SystemClock.uptimeMillis();
-	}
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		return this.onTouchEvent(event);
-	}
-
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
-		screenW = w;
-		screenH = h;
-	}
-
-	public boolean isZoomed() {
-		return xScale > 1;
-	}
-
-	// private void _replaceCenter(MotionEvent event) {
-	// final float xCur = event.getX(0);
-	// final float yCur = event.getY(0);
-	//
-	// new Thread(new Runnable() {
-	// public void run() {
-	// try {
-	// Thread.sleep(30);
-	// long firstGestureTime = mLastGestureTime;
-	// long delay = 20;
-	//
-	// for (long total = 0; total <= TOUCH_INTERVAL_DOUBLECLICK; total += delay)
-	// {
-	// Thread.sleep(delay);
-	// if (mLastGestureTime != firstGestureTime)
-	// return; // we quickly got an other click after the
-	// // first. Dont move
-	// }
-	// } catch (InterruptedException e) {
-	// Toast.makeText(getContext(), "wait() fail", 0).show();
-	// e.printStackTrace();
-	// }
-	// // We can move
-	// // Looper.prepare();
-	// // Toast.makeText(getContext(), "Je move", 0).show();
-	//
-	// Log.v("BOAP", "BOAAAAAP");
-	// float posX = xCur / screenW;
-	// float posY = yCur / screenH;
-	// posX = posX < 0 ? 0 : posX > 1 ? 1 : posX;
-	// posY = posY < 0 ? 0 : posY > 1 ? 1 : posY;
-	//
-	// ScaleAnimation scale = new ScaleAnimation(xScale, xScale,
-	// yScale, yScale, ScaleAnimation.RELATIVE_TO_SELF, 0,
-	// ScaleAnimation.RELATIVE_TO_SELF, 0);
-	//
-	// if (scale != null) {
-	// scale.setDuration(DURATION);
-	// scale.setFillAfter(true);
-	// scale.setInterpolator(getContext(), _interpolator);
-	//
-	// im.startAnimation(scale);
-	// }
-	// }
-	// }).start();
-	// }
+    public boolean isZoomed() {
+        return mScaleFactor > 1;
+    }
 }
