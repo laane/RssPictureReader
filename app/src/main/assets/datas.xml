@@ -7,7 +7,6 @@
     <item><url>http://fuckyeahmountainbiking.tumblr.com/rss</url>
         <name>FuckYeahMountainbiking</name></item>
 
-
     <item><url>http://breathtakinglandscapes.tumblr.com/rss</url>
         <name>BreathtakingLandscapes</name></item>
     <item><url>http://bonjourlebug.fr/rss/</url>
@@ -64,6 +63,4 @@
         <name>Sushi</name></item>
     <item><url>http://feeds.feedburner.com/BonjourTableau?format=xml</url>
         <name>Tableau</name></item>
-    <item><url>http://bonjourtatoos.tumblr.com/rss/</url>
-        <name>Tatoos</name></item>
 </root>
