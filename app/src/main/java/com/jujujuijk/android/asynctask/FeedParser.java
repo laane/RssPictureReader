@@ -14,6 +14,8 @@ import org.w3c.dom.NodeList;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -25,17 +27,17 @@ public class FeedParser extends
     protected static final int NB_MAX_LOAD = ShowFeedFragment.NB_MAX_IMAGES;
 
     protected Feed mFeed;
-    protected URL m_url;
+    protected URL mUrl;
 
-    private Document m_doc;
-    private Element m_root;
-    private NodeList m_nodes;
+    private Document mDoc;
+    private Element mRoot;
+    private NodeList mNodes;
 
     public FeedParser(RssParserCallBack parent, Feed feed) {
         m_parent = parent;
         mFeed = feed;
         try {
-            m_url = new URL(mFeed.getUrl());
+            mUrl = new URL(mFeed.getUrl());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,18 +47,18 @@ public class FeedParser extends
     protected List<Bundle> doInBackground(Integer... nbMax) {
         List<Bundle> ret = null;
 
-        if (m_url == null)
+        if (mUrl == null)
             return ret;
 
         try {
-            m_doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                    .parse(m_url.openStream());
-            m_root = m_doc.getDocumentElement();
-            m_nodes = m_root.getElementsByTagName("item");
+            mDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(mUrl.openStream());
+            mRoot = mDoc.getDocumentElement();
+            mNodes = mRoot.getElementsByTagName("item");
 
-            for (int i = 0; i < m_nodes.getLength() && i < NB_MAX_LOAD && i < nbMax[0]; ++i) {
+            for (int i = 0; i < mNodes.getLength() && i < NB_MAX_LOAD && i < nbMax[0]; ++i) {
                 try {
-                    Element elem = (Element) m_nodes.item(i);
+                    Element elem = (Element) mNodes.item(i);
                     NodeList desc = elem.getElementsByTagName("description");
                     NodeList date = elem.getElementsByTagName("pubDate");
                     NodeList title = elem.getElementsByTagName("title");
@@ -69,12 +71,12 @@ public class FeedParser extends
                         ret = new ArrayList<Bundle>();
 
                     String strDesc = desc.item(0).getTextContent();
-                    try {
-                        strDesc = (String) strDesc.substring(strDesc.indexOf("<img"));
-                        strDesc = (String) strDesc.subSequence(
-                                strDesc.indexOf("http://"),
-                                strDesc.indexOf("\"", strDesc.indexOf("http://") + 10));
-                    } catch (IndexOutOfBoundsException e) { // Example: bonsoir mademoiselle: Image is not in <description> but in <content:encoded>
+
+                    final Pattern ptrn = Pattern.compile("<img src=\"(.+?)\"/>");
+                    final Matcher mtchr = ptrn.matcher(strDesc);
+                    if (mtchr.find()) {
+                        strDesc = strDesc.substring(mtchr.start(), mtchr.end()).replace("<img src=\"", "").replace("\"/>", "");
+                    } else {
                         NodeList desc2 = elem.getElementsByTagName("content:encoded");
                         strDesc = desc2.item(0).getTextContent();
                         strDesc = (String) strDesc.substring(strDesc.indexOf("<img"));
@@ -99,7 +101,7 @@ public class FeedParser extends
                     ret.add(b);
                 } catch (Exception e) {
                     e.printStackTrace();
-                } // Attending here for <item>'s that do not contain images
+                } // Expecting here for <item>'s that do not contain images
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,11 +114,12 @@ public class FeedParser extends
      * The system calls this to perform work in the UI thread and delivers the
      * result from doInBackground()
      */
+
     protected void onPostExecute(List<Bundle> result) {
         if (m_parent == null)
             return;
-        if (m_parent instanceof Fragment && (((Fragment)m_parent).isRemoving()
-                || ((Fragment)m_parent).isDetached() || ((Fragment)m_parent).getActivity() == null))
+        if (m_parent instanceof Fragment && (((Fragment) m_parent).isRemoving()
+                || ((Fragment) m_parent).isDetached() || ((Fragment) m_parent).getActivity() == null))
             return;
         m_parent.onRssParserPostExecute(result, mFeed);
     }
