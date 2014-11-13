@@ -60,7 +60,7 @@ public class PinchImageView extends ImageView {
                 }
                 break;
             }
-            case MotionEvent.ACTION_POINTER_1_DOWN: {
+            case (MotionEvent.ACTION_POINTER_INDEX_MASK | MotionEvent.ACTION_POINTER_DOWN): {
                 if (mScaleDetector.isInProgress()) {
                     final float gx = mScaleDetector.getFocusX();
                     final float gy = mScaleDetector.getFocusY();
